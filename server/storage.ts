@@ -18,7 +18,7 @@ export class JsonFileStorage implements IStorage {
   private dataDir: string;
 
   constructor() {
-    this.dataDir = "/tmp/Birthdayreminder2";
+    this.dataDir = process.env.DATA_DIR || "/home/user/Birthdayreminder2";
     this.filePath = path.join(this.dataDir, "birthdays.json");
     this.ensureFile();
   }
