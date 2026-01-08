@@ -22,9 +22,36 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+
+const MONTHS = [
+  { value: "01", label: "Январь" },
+  { value: "02", label: "Февраль" },
+  { value: "03", label: "Март" },
+  { value: "04", label: "Апрель" },
+  { value: "05", label: "Май" },
+  { value: "06", label: "Июнь" },
+  { value: "07", label: "Июль" },
+  { value: "08", label: "Август" },
+  { value: "09", label: "Сентябрь" },
+  { value: "10", label: "Октябрь" },
+  { value: "11", label: "Ноябрь" },
+  { value: "12", label: "Декабрь" },
+];
+
+const DAYS = Array.from({ length: 31 }, (_, i) => {
+  const day = (i + 1).toString().padStart(2, "0");
+  return { value: day, label: (i + 1).toString() };
+});
 
 interface BirthdayFormDialogProps {
   open: boolean;
@@ -44,6 +71,10 @@ export function BirthdayFormDialog({
   const isEditing = !!birthday;
   const isPending = createMutation.isPending || updateMutation.isPending;
 
+  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [originalYear, setOriginalYear] = useState("2000");
+
   const form = useForm<InsertBirthday>({
     resolver: zodResolver(insertBirthdaySchema),
     defaultValues: {
@@ -59,6 +90,13 @@ export function BirthdayFormDialog({
   useEffect(() => {
     if (open) {
       if (birthday) {
+        const dateParts = birthday.birthDate.split("-");
+        const year = dateParts[0] || "2000";
+        const month = dateParts[1] || "";
+        const day = dateParts[2] || "";
+        setOriginalYear(year);
+        setSelectedMonth(month);
+        setSelectedDay(day);
         form.reset({
           name: birthday.name,
           birthDate: birthday.birthDate,
@@ -67,6 +105,9 @@ export function BirthdayFormDialog({
           isReminderSet: birthday.isReminderSet || false,
         });
       } else {
+        setOriginalYear("2000");
+        setSelectedDay("");
+        setSelectedMonth("");
         form.reset({
           name: "",
           birthDate: "",
@@ -78,21 +119,36 @@ export function BirthdayFormDialog({
     }
   }, [open, birthday, form]);
 
+  // Update birthDate when day or month changes
+  useEffect(() => {
+    if (selectedDay && selectedMonth) {
+      form.setValue("birthDate", `${originalYear}-${selectedMonth}-${selectedDay}`);
+    }
+  }, [selectedDay, selectedMonth, originalYear, form]);
+
   const onSubmit = async (data: InsertBirthday) => {
+    if (!selectedDay || !selectedMonth) {
+      toast({
+        variant: "destructive",
+        title: "Ошибка",
+        description: "Пожалуйста, выберите день и месяц.",
+      });
+      return;
+    }
     try {
       if (isEditing && birthday) {
         await updateMutation.mutateAsync({ id: birthday.id, ...data });
-        toast({ title: "Success", description: "Birthday updated successfully" });
+        toast({ title: "Готово", description: "День рождения обновлён." });
       } else {
         await createMutation.mutateAsync(data);
-        toast({ title: "Success", description: "Birthday added successfully" });
+        toast({ title: "Готово", description: "День рождения добавлен." });
       }
       onOpenChange(false);
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Something went wrong. Please try again.",
+        title: "Ошибка",
+        description: "Что-то пошло не так. Попробуйте снова.",
       });
     }
   };
@@ -134,20 +190,35 @@ export function BirthdayFormDialog({
             <FormField
               control={form.control}
               name="birthDate"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <FormLabel>Дата рождения</FormLabel>
-                  <FormControl>
-                    {/* Using type="date" simplifies parsing, but schema allows text. 
-                        For consistent UX, we'll suggest YYYY-MM-DD but accept whatever the user types if we change to text.
-                        Here we use 'date' input for best experience on mobile too.
-                    */}
-                    <Input 
-                      type="date" 
-                      className="rounded-xl h-11 border-border/60 bg-muted/30 focus:bg-background transition-colors w-full"
-                      {...field} 
-                    />
-                  </FormControl>
+                  <div className="flex gap-3">
+                    <Select value={selectedDay} onValueChange={setSelectedDay}>
+                      <SelectTrigger className="rounded-xl h-11 border-border/60 bg-muted/30 focus:bg-background transition-colors flex-1" data-testid="select-day">
+                        <SelectValue placeholder="День" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {DAYS.map((day) => (
+                          <SelectItem key={day.value} value={day.value}>
+                            {day.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                      <SelectTrigger className="rounded-xl h-11 border-border/60 bg-muted/30 focus:bg-background transition-colors flex-[2]" data-testid="select-month">
+                        <SelectValue placeholder="Месяц" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {MONTHS.map((month) => (
+                          <SelectItem key={month.value} value={month.value}>
+                            {month.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}

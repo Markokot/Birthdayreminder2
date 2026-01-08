@@ -50,20 +50,21 @@ export function BirthdayCard({
         isToday && "ring-2 ring-accent ring-offset-2"
       )}
     >
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex-1 min-w-0 flex items-center gap-3">
-          <h3 className="text-lg font-bold font-display text-foreground truncate shrink-0">
-            {birthday.name}
-          </h3>
-          <span className="text-sm text-muted-foreground font-medium shrink-0">
-             {formattedDate}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-lg font-bold font-display text-foreground truncate">
+              {birthday.name}
+            </h3>
+            {isToday && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-accent/10 text-accent shrink-0">
+                Сегодня!
+              </span>
+            )}
+          </div>
+          <span className="text-sm text-muted-foreground font-medium">
+            {formattedDate}
           </span>
-            
-          {isToday && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-accent/10 text-accent">
-              Сегодня! 🎉
-            </span>
-          )}
         </div>
 
         <div className="flex items-center gap-1 shrink-0">

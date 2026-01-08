@@ -238,5 +238,13 @@
     "description": "Учитель истории.",
     "isGiftRequired": false,
     "isReminderSet": true
+  },
+  {
+    "name": "Дмитрий Петров",
+    "birthDate": "1997-01-02",
+    "description": "",
+    "isGiftRequired": true,
+    "isReminderSet": false,
+    "id": 31
   }
 ]
