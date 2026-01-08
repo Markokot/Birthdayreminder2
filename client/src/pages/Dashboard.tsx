@@ -40,7 +40,7 @@ export default function Dashboard() {
   const [, setLocation] = useLocation();
   const logoutMutation = useLogout();
   
-  const { data: birthdays, isLoading: isBirthdaysLoading } = useBirthdays();
+  const { data: birthdays, isLoading: isBirthdaysLoading } = useBirthdays(!!user);
   const updateMutation = useUpdateBirthday();
   const deleteMutation = useDeleteBirthday();
 
@@ -51,15 +51,15 @@ export default function Dashboard() {
 
   // Filter and sort logic
   const groupedBirthdays = useMemo(() => {
-    if (!birthdays) return {};
+    if (!birthdays || !Array.isArray(birthdays)) return {};
 
-    const filtered = (birthdays || []).filter(b => 
+    const filtered = birthdays.filter((b: Birthday) => 
       b.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     // Sort by date (assuming YYYY-MM-DD or MM-DD format)
     // We only care about Month/Day for sorting
-    filtered.sort((a, b) => {
+    filtered.sort((a: Birthday, b: Birthday) => {
       const dateA = new Date(a.birthDate);
       const dateB = new Date(b.birthDate);
       // Compare month first
@@ -71,7 +71,7 @@ export default function Dashboard() {
 
     // Group by month
     const groups: Record<string, Birthday[]> = {};
-    filtered.forEach(b => {
+    filtered.forEach((b: Birthday) => {
       const date = new Date(b.birthDate);
       const monthName = MONTHS[getMonth(date)];
       if (!groups[monthName]) groups[monthName] = [];
@@ -181,7 +181,7 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        {!birthdays?.length ? (
+        {!birthdays || !Array.isArray(birthdays) || birthdays.length === 0 ? (
           <div className="text-center py-20">
             <div className="bg-white p-8 rounded-full inline-flex mb-4 shadow-lg shadow-black/5">
               <PartyPopper className="w-12 h-12 text-primary/40" />

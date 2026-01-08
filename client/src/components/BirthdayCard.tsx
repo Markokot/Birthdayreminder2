@@ -45,7 +45,7 @@ export function BirthdayCard({
       exit={{ opacity: 0, scale: 0.95 }}
       whileHover={{ y: -4 }}
       className={cn(
-        "group relative bg-white rounded-2xl px-5 py-3 shadow-sm border border-border/50",
+        "group relative bg-white rounded-2xl px-3 py-2 shadow-sm border border-border/50",
         "hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300",
         isToday && "ring-2 ring-accent ring-offset-2"
       )}

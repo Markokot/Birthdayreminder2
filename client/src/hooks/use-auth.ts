@@ -26,19 +26,20 @@ export function useLogin() {
       );
       return res.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.auth.me.path] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [api.auth.me.path] });
+      await queryClient.invalidateQueries({ queryKey: [api.birthdays.list.path] });
       setLocation("/");
       toast({
-        title: "Welcome back",
-        description: "You have successfully logged in.",
+        title: "С возвращением!",
+        description: "Вы успешно вошли в систему.",
       });
     },
     onError: () => {
       toast({
         variant: "destructive",
-        title: "Login failed",
-        description: "Invalid username or password.",
+        title: "Ошибка входа",
+        description: "Неверное имя пользователя или пароль.",
       });
     },
   });

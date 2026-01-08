@@ -1,12 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, buildUrl } from "@shared/routes";
-import { type InsertBirthday } from "@shared/schema";
+import { type InsertBirthday, type Birthday } from "@shared/schema";
 import { getQueryFn, apiRequest } from "@/lib/queryClient";
 
-export function useBirthdays() {
-  return useQuery({
+export function useBirthdays(enabled: boolean = true) {
+  return useQuery<Birthday[] | null>({
     queryKey: [api.birthdays.list.path],
     queryFn: getQueryFn({ on401: "returnNull" }),
+    enabled,
   });
 }
 
