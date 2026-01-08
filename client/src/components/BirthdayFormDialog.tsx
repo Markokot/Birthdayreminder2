@@ -100,14 +100,14 @@ export function BirthdayFormDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px] rounded-2xl p-6 sm:p-8">
-        <DialogHeader className="mb-4">
+          <DialogHeader className="mb-4">
           <DialogTitle className="font-display text-2xl">
-            {isEditing ? "Edit Details" : "Add New Birthday"}
+            {isEditing ? "Редактировать" : "Добавить день рождения"}
           </DialogTitle>
           <DialogDescription>
             {isEditing 
-              ? "Update the information for this special day." 
-              : "Keep track of another important celebration."}
+              ? "Обновите информацию об этом событии." 
+              : "Сохраните еще одну важную дату."}
           </DialogDescription>
         </DialogHeader>
 
@@ -118,10 +118,10 @@ export function BirthdayFormDialog({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Имя</FormLabel>
                   <FormControl>
                     <Input 
-                      placeholder="e.g. Alice Smith" 
+                      placeholder="Например: Иван Иванов" 
                       className="rounded-xl h-11 border-border/60 bg-muted/30 focus:bg-background transition-colors"
                       {...field} 
                     />
@@ -136,7 +136,7 @@ export function BirthdayFormDialog({
               name="birthDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Date</FormLabel>
+                  <FormLabel>Дата рождения</FormLabel>
                   <FormControl>
                     {/* Using type="date" simplifies parsing, but schema allows text. 
                         For consistent UX, we'll suggest YYYY-MM-DD but accept whatever the user types if we change to text.
@@ -158,10 +158,10 @@ export function BirthdayFormDialog({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes (Optional)</FormLabel>
+                  <FormLabel>Заметки (необязательно)</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Gift ideas, favorite colors, etc." 
+                      placeholder="Идеи подарков, любимые цветы и т.д." 
                       className="resize-none rounded-xl border-border/60 bg-muted/30 focus:bg-background transition-colors min-h-[100px]"
                       {...field} 
                       value={field.value || ""}
@@ -179,7 +179,7 @@ export function BirthdayFormDialog({
                 onClick={() => onOpenChange(false)}
                 className="rounded-xl h-11"
               >
-                Cancel
+                Отмена
               </Button>
               <Button 
                 type="submit" 
@@ -187,7 +187,7 @@ export function BirthdayFormDialog({
                 className="rounded-xl h-11 px-8 bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
               >
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isEditing ? "Save Changes" : "Create Card"}
+                {isEditing ? "Сохранить" : "Создать"}
               </Button>
             </DialogFooter>
           </form>

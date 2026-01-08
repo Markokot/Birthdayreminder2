@@ -31,8 +31,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Helper to group birthdays by month
 const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+  "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+  "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
 ];
 
 export default function Dashboard() {
@@ -114,7 +114,7 @@ export default function Dashboard() {
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center animate-pulse">
             <PartyPopper className="w-8 h-8 text-primary" />
           </div>
-          <p className="text-muted-foreground font-medium">Loading celebrations...</p>
+          <p className="text-muted-foreground font-medium">Загрузка...</p>
         </div>
       </div>
     );
@@ -130,7 +130,7 @@ export default function Dashboard() {
               <CalendarIcon className="w-5 h-5" />
             </div>
             <h1 className="font-display font-bold text-xl tracking-tight hidden sm:block">
-              RemindMe
+              Напоминалка
             </h1>
           </div>
 
@@ -138,7 +138,7 @@ export default function Dashboard() {
             <div className="relative hidden md:block w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input 
-                placeholder="Search names..." 
+                placeholder="Поиск..." 
                 className="pl-9 h-9 rounded-full bg-muted/50 border-transparent focus:bg-white focus:border-primary/20 transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -151,7 +151,7 @@ export default function Dashboard() {
               className="rounded-full h-9 px-4 bg-primary hover:bg-primary/90 shadow-md shadow-primary/20"
             >
               <Plus className="w-4 h-4 mr-1.5" />
-              Add New
+              Добавить
             </Button>
 
             <Button 
@@ -159,7 +159,7 @@ export default function Dashboard() {
               size="icon" 
               onClick={() => logoutMutation.mutate()}
               className="rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-              title="Logout"
+              title="Выйти"
             >
               <LogOut className="w-4 h-4" />
             </Button>
@@ -171,7 +171,7 @@ export default function Dashboard() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input 
-              placeholder="Search names..." 
+              placeholder="Поиск..." 
               className="pl-9 h-10 rounded-xl bg-white border-border/50 shadow-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -186,14 +186,14 @@ export default function Dashboard() {
             <div className="bg-white p-8 rounded-full inline-flex mb-4 shadow-lg shadow-black/5">
               <PartyPopper className="w-12 h-12 text-primary/40" />
             </div>
-            <h2 className="text-2xl font-display font-bold mb-2">No birthdays yet</h2>
-            <p className="text-muted-foreground mb-6">Start by adding your first special person!</p>
+            <h2 className="text-2xl font-display font-bold mb-2">Дней рождений пока нет</h2>
+            <p className="text-muted-foreground mb-6">Добавьте первый день рождения!</p>
             <Button 
               size="lg" 
               onClick={() => setIsCreateOpen(true)}
               className="rounded-full"
             >
-              Add Birthday
+              Добавить
             </Button>
           </div>
         ) : (
@@ -228,7 +228,7 @@ export default function Dashboard() {
             
             {Object.keys(groupedBirthdays).length === 0 && searchQuery && (
               <div className="text-center py-12 text-muted-foreground">
-                No birthdays found matching "{searchQuery}"
+                Ничего не найдено по запросу "{searchQuery}"
               </div>
             )}
           </div>
@@ -245,18 +245,18 @@ export default function Dashboard() {
       <AlertDialog open={!!deletingId} onOpenChange={(open) => !open && setDeletingId(null)}>
         <AlertDialogContent className="rounded-2xl">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>Вы уверены?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete this birthday card.
+              Это действие нельзя отменить. Карточка будет удалена безвозвратно.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="rounded-xl">Отмена</AlertDialogCancel>
             <AlertDialogAction 
               onClick={handleDeleteConfirm}
               className="rounded-xl bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete
+              Удалить
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

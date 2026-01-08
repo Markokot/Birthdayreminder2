@@ -60,9 +60,9 @@ export default function Login() {
           <div className="mx-auto w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 text-primary">
             <PartyPopper className="w-6 h-6" />
           </div>
-          <CardTitle className="text-3xl font-display font-bold">Welcome Back</CardTitle>
+          <CardTitle className="text-3xl font-display font-bold">С возвращением</CardTitle>
           <CardDescription className="text-base">
-            Please sign in to manage birthdays
+            Пожалуйста, войдите, чтобы управлять днями рождения
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -73,10 +73,10 @@ export default function Login() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Имя пользователя</FormLabel>
                     <FormControl>
                       <Input 
-                        placeholder="Enter username" 
+                        placeholder="Введите имя пользователя" 
                         className="h-11 rounded-xl bg-background/50" 
                         {...field} 
                       />
@@ -90,11 +90,11 @@ export default function Login() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Пароль</FormLabel>
                     <FormControl>
                       <Input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter password"
+                        placeholder="Введите пароль"
                         className="h-11 rounded-xl bg-background/50"
                         {...field}
                       />
@@ -111,7 +111,7 @@ export default function Login() {
                   onChange={(e) => setShowPassword(e.target.checked)}
                 />
                 <label htmlFor="show-password" বিজ="text-sm text-muted-foreground select-none cursor-pointer">
-                  Show password
+                  Показать пароль
                 </label>
               </div>
 
@@ -123,10 +123,10 @@ export default function Login() {
                 {loginMutation.isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
+                    Вход...
                   </>
                 ) : (
-                  "Sign In"
+                  "Войти"
                 )}
               </Button>
             </form>
