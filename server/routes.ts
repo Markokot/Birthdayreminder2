@@ -117,32 +117,5 @@ export async function registerRoutes(
     res.sendStatus(204);
   });
 
-  // Seed data if empty
-  const existing = await storage.getBirthdays();
-  if (existing.length === 0) {
-    console.log("Seeding initial data...");
-    await storage.createBirthday({
-      name: "Андрей",
-      birthDate: "1990-07-15",
-      description: "Любит рыбалку и технику. (Пример из задачи)",
-      isGiftRequired: true,
-      isReminderSet: true
-    });
-    await storage.createBirthday({
-      name: "Марина",
-      birthDate: "1995-02-20",
-      description: "Цветы и книги.",
-      isGiftRequired: false,
-      isReminderSet: true
-    });
-    await storage.createBirthday({
-      name: "Бабушка",
-      birthDate: "1950-12-05",
-      description: "Позвонить заранее!",
-      isGiftRequired: true,
-      isReminderSet: false
-    });
-  }
-
   return httpServer;
 }
