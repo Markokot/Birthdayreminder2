@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginRequest } from "@shared/schema";
@@ -29,12 +29,6 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const loginMutation = useLogin();
 
-  // If already logged in, redirect
-  if (!isUserLoading && user) {
-    setLocation("/");
-    return null;
-  }
-
   const form = useForm<LoginRequest>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -42,6 +36,17 @@ export default function Login() {
       password: "",
     },
   });
+
+  // If already logged in, redirect
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      setLocation("/");
+    }
+  }, [isUserLoading, user, setLocation]);
+
+  if (!isUserLoading && user) {
+    return null;
+  }
 
   const onSubmit = (data: LoginRequest) => {
     loginMutation.mutate(data);

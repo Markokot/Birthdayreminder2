@@ -1,26 +1,242 @@
 [
   {
-    "name": "Андрей",
-    "birthDate": "1990-07-15",
-    "description": "Любит рыбалку и технику. (Пример из задачи)",
+    "id": 1,
+    "name": "Мама",
+    "birthDate": "1970-03-15",
+    "description": "Любит орхидеи и книги по садоводству.",
     "isGiftRequired": true,
-    "isReminderSet": true,
-    "id": 1
+    "isReminderSet": true
   },
   {
-    "name": "Марина",
-    "birthDate": "1995-02-20",
-    "description": "Цветы и книги.",
+    "id": 2,
+    "name": "Папа",
+    "birthDate": "1968-05-20",
+    "description": "Нужен новый набор инструментов или спиннинг.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 3,
+    "name": "Анна (Сестра)",
+    "birthDate": "1995-07-08",
+    "description": "Мечтает о сертификате в SPA.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 4,
+    "name": "Дмитрий Петрович",
+    "birthDate": "1980-01-12",
+    "description": "Начальник. Любит хороший кофе.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 5,
+    "name": "Елена (Коллега)",
+    "birthDate": "1992-09-23",
+    "description": "Скидываемся отделом на подарок.",
     "isGiftRequired": false,
-    "isReminderSet": true,
-    "id": 2
+    "isReminderSet": true
   },
   {
-    "name": "Бабушка",
-    "birthDate": "1950-12-05",
-    "description": "Позвонить заранее!",
+    "id": 6,
+    "name": "Бабушка Валя",
+    "birthDate": "1945-11-05",
+    "description": "Главное - позвонить и поздравить с утра!",
     "isGiftRequired": true,
-    "isReminderSet": false,
-    "id": 3
+    "isReminderSet": true
+  },
+  {
+    "id": 7,
+    "name": "Дедушка Коля",
+    "birthDate": "1943-02-18",
+    "description": "Любит чай с бергамотом.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 8,
+    "name": "Максим (Друг)",
+    "birthDate": "1990-04-30",
+    "description": "Настольные игры или комиксы.",
+    "isGiftRequired": true,
+    "isReminderSet": false
+  },
+  {
+    "id": 9,
+    "name": "Ольга Николаевна",
+    "birthDate": "1960-10-05",
+    "description": "Учительница музыки.",
+    "isGiftRequired": false,
+    "isReminderSet": true
+  },
+  {
+    "id": 10,
+    "name": "Сергей",
+    "birthDate": "1988-06-14",
+    "description": "Фанат футбола (Зенит).",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 11,
+    "name": "Ирина",
+    "birthDate": "1993-08-25",
+    "description": "Любит косметику и духи.",
+    "isGiftRequired": true,
+    "isReminderSet": false
+  },
+  {
+    "id": 12,
+    "name": "Александр",
+    "birthDate": "1985-12-30",
+    "description": "Всегда празднует перед Новым годом.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 13,
+    "name": "Татьяна",
+    "birthDate": "1978-02-14",
+    "description": "Родилась в день влюбленных.",
+    "isGiftRequired": false,
+    "isReminderSet": true
+  },
+  {
+    "id": 14,
+    "name": "Виктор",
+    "birthDate": "1999-03-01",
+    "description": "Студент, нужны деньги.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 15,
+    "name": "Наталья",
+    "birthDate": "1982-11-19",
+    "description": "Увлекается йогой.",
+    "isGiftRequired": true,
+    "isReminderSet": false
+  },
+  {
+    "id": 16,
+    "name": "Евгений",
+    "birthDate": "1975-01-25",
+    "description": "Любит технику Apple.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 17,
+    "name": "Мария",
+    "birthDate": "2005-05-10",
+    "description": "Племянница. Хочет новый телефон.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 18,
+    "name": "Константин",
+    "birthDate": "1990-09-15",
+    "description": "Программист, подарить клавиатуру.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 19,
+    "name": "Вероника",
+    "birthDate": "1996-07-22",
+    "description": "Фотограф, нужны аксессуары для камеры.",
+    "isGiftRequired": true,
+    "isReminderSet": false
+  },
+  {
+    "id": 20,
+    "name": "Павел",
+    "birthDate": "1989-04-12",
+    "description": "День космонавтики!",
+    "isGiftRequired": false,
+    "isReminderSet": true
+  },
+  {
+    "id": 21,
+    "name": "Юлия",
+    "birthDate": "1994-10-28",
+    "description": "Любит сладкое.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 22,
+    "name": "Артем",
+    "birthDate": "2010-06-01",
+    "description": "Крестник. Лего.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 23,
+    "name": "Дарья",
+    "birthDate": "1998-12-15",
+    "description": "Художница, нужны краски.",
+    "isGiftRequired": true,
+    "isReminderSet": false
+  },
+  {
+    "id": 24,
+    "name": "Роман",
+    "birthDate": "1987-08-08",
+    "description": "Любит путешествовать.",
+    "isGiftRequired": false,
+    "isReminderSet": true
+  },
+  {
+    "id": 25,
+    "name": "Ксения",
+    "birthDate": "1991-02-28",
+    "description": "Вечно теряет зонтики.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 26,
+    "name": "Владимир",
+    "birthDate": "1965-05-09",
+    "description": "Родился в день Победы.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 27,
+    "name": "Алина",
+    "birthDate": "2000-01-01",
+    "description": "Новогодний подарок + ДР.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 28,
+    "name": "Григорий",
+    "birthDate": "1995-11-25",
+    "description": "Гитарист.",
+    "isGiftRequired": true,
+    "isReminderSet": false
+  },
+  {
+    "id": 29,
+    "name": "София",
+    "birthDate": "2003-03-08",
+    "description": "8 марта - двойной праздник.",
+    "isGiftRequired": true,
+    "isReminderSet": true
+  },
+  {
+    "id": 30,
+    "name": "Игорь",
+    "birthDate": "1983-09-01",
+    "description": "Учитель истории.",
+    "isGiftRequired": false,
+    "isReminderSet": true
   }
 ]
