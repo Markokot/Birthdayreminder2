@@ -8,6 +8,15 @@ import MemoryStore from "memorystore";
 
 const SessionStore = MemoryStore(session);
 
+declare module "express-session" {
+  interface SessionData {
+    user: {
+      username: string;
+      role: string;
+    };
+  }
+}
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express

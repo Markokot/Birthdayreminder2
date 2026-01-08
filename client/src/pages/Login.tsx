@@ -110,7 +110,7 @@ export default function Login() {
                   className="rounded border-gray-300 text-primary focus:ring-primary"
                   onChange={(e) => setShowPassword(e.target.checked)}
                 />
-                <label htmlFor="show-password" বিজ="text-sm text-muted-foreground select-none cursor-pointer">
+                <label htmlFor="show-password" className="text-sm text-muted-foreground select-none cursor-pointer">
                   Показать пароль
                 </label>
               </div>

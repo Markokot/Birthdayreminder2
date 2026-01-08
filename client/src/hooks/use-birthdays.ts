@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, buildUrl, type InsertBirthday } from "@shared/routes";
+import { api, buildUrl } from "@shared/routes";
+import { type InsertBirthday } from "@shared/schema";
 import { getQueryFn, apiRequest } from "@/lib/queryClient";
 
 export function useBirthdays() {

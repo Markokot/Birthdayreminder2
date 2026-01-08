@@ -53,7 +53,7 @@ export default function Dashboard() {
   const groupedBirthdays = useMemo(() => {
     if (!birthdays) return {};
 
-    const filtered = birthdays.filter(b => 
+    const filtered = (birthdays || []).filter(b => 
       b.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
