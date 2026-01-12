@@ -103,11 +103,11 @@ def format_message(upcoming_birthdays):
     if not upcoming_birthdays:
         return None
     
-    lines = ["🎂 *Напоминание о днях рождения*\n"]
+    lines = ["🎂 Напоминание о днях рождения\n"]
     
     for b in upcoming_birthdays:
         if b["days_until"] == 0:
-            when = "🎉 *СЕГОДНЯ!*"
+            when = "🎉 СЕГОДНЯ!"
         elif b["days_until"] == 1:
             when = "⏰ Завтра"
         else:
@@ -115,10 +115,10 @@ def format_message(upcoming_birthdays):
         
         gift_emoji = "🎁" if b["is_gift_required"] else ""
         
-        line = f"\n*{b['name']}* — {b['date']}\n{when} {gift_emoji}"
+        line = f"\n{b['name']} — {b['date']}\n{when} {gift_emoji}"
         
         if b["description"]:
-            line += f"\n_{b['description']}_"
+            line += f"\n{b['description']}"
         
         lines.append(line)
     
@@ -141,8 +141,7 @@ def send_telegram_message(message):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     data = urllib.parse.urlencode({
         "chat_id": CHAT_ID,
-        "text": message,
-        "parse_mode": "Markdown"
+        "text": message
     }).encode()
     
     try:
