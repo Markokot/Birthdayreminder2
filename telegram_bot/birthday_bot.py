@@ -129,23 +129,38 @@ def send_telegram_message(message):
     """Отправить сообщение в Telegram."""
     import urllib.request
     import urllib.parse
+    import urllib.error
     
     if BOT_TOKEN == "YOUR_BOT_TOKEN_HERE" or CHAT_ID == "YOUR_CHAT_ID_HERE":
         print("⚠️  Настройте BOT_TOKEN и CHAT_ID!")
         print("\nСообщение, которое было бы отправлено:")
         print("-" * 40)
-        print(message.replace("*", "").replace("_", ""))
+        print(message)
         print("-" * 40)
         return False
     
+    # Отладочная информация
+    print(f"\n📤 Отправка сообщения...")
+    print(f"   BOT_TOKEN: {BOT_TOKEN[:10]}...{BOT_TOKEN[-5:]}")
+    print(f"   CHAT_ID: {CHAT_ID}")
+    print(f"   Длина сообщения: {len(message)} символов")
+    print(f"\n--- Текст сообщения ---")
+    print(message)
+    print("--- Конец сообщения ---\n")
+    
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-    data = urllib.parse.urlencode({
+    
+    payload = {
         "chat_id": CHAT_ID,
         "text": message
-    }).encode()
+    }
+    
+    data = urllib.parse.urlencode(payload).encode('utf-8')
     
     try:
-        req = urllib.request.Request(url, data=data)
+        req = urllib.request.Request(url, data=data, method='POST')
+        req.add_header('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8')
+        
         with urllib.request.urlopen(req) as response:
             result = json.loads(response.read().decode())
             if result.get("ok"):
@@ -154,8 +169,13 @@ def send_telegram_message(message):
             else:
                 print(f"❌ Ошибка Telegram API: {result}")
                 return False
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        print(f"❌ HTTP ошибка {e.code}: {e.reason}")
+        print(f"   Ответ сервера: {error_body}")
+        return False
     except Exception as e:
-        print(f"❌ Ошибка отправки: {e}")
+        print(f"❌ Ошибка отправки: {type(e).__name__}: {e}")
         return False
 
 
