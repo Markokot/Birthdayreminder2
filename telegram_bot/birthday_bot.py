@@ -29,6 +29,7 @@ BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
 CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "YOUR_CHAT_ID_HERE")
 DATA_DIR = os.environ.get("DATA_DIR", "/home/user/Birthdayreminder2")
 DAYS_AHEAD = int(os.environ.get("DAYS_AHEAD", "7"))  # За сколько дней предупреждать
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 
 # Путь к файлу данных
 BIRTHDAYS_FILE = os.path.join(DATA_DIR, "birthdays.json")
@@ -118,11 +119,63 @@ def format_message(upcoming_birthdays):
         line = f"\n{b['name']} — {b['date']}\n{when} {gift_emoji}"
         
         if b["description"]:
-            line += f"\n{b['description']}"
+            line += f"\n📝 {b['description']}"
+        
+        # Генерируем AI-поздравление для именинников сегодня или завтра
+        if b["days_until"] <= 1 and DEEPSEEK_API_KEY:
+            print(f"✨ Генерация поздравления для {b['name']}...")
+            greeting = generate_greeting(b["name"], b["description"])
+            if greeting:
+                line += f"\n\n💬 Вариант поздравления:\n{greeting}"
         
         lines.append(line)
     
     return "\n".join(lines)
+
+
+def generate_greeting(name, note=""):
+    """Сгенерировать поздравление с помощью DeepSeek API."""
+    import urllib.request
+    import urllib.error
+    
+    if not DEEPSEEK_API_KEY:
+        return None
+    
+    prompt = f"Напиши короткое (2-3 предложения) искреннее поздравление с днём рождения для {name}."
+    if note:
+        prompt += f" Учти следующую информацию о человеке: {note}"
+    prompt += " Поздравление должно быть тёплым и персональным. Не используй слишком формальный стиль."
+    
+    payload = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "system", "content": "Ты помощник, который пишет тёплые и искренние поздравления с днём рождения на русском языке."},
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 200,
+        "temperature": 0.8
+    }
+    
+    try:
+        data = json.dumps(payload).encode('utf-8')
+        req = urllib.request.Request(
+            "https://api.deepseek.com/chat/completions",
+            data=data,
+            method='POST'
+        )
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('Authorization', f'Bearer {DEEPSEEK_API_KEY}')
+        
+        with urllib.request.urlopen(req, timeout=30) as response:
+            result = json.loads(response.read().decode())
+            greeting = result.get("choices", [{}])[0].get("message", {}).get("content", "")
+            return greeting.strip() if greeting else None
+    except urllib.error.HTTPError as e:
+        print(f"⚠️ Ошибка DeepSeek API: {e.code}")
+        return None
+    except Exception as e:
+        print(f"⚠️ Ошибка генерации поздравления: {e}")
+        return None
 
 
 def send_telegram_message(message):
