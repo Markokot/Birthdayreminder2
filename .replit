@@ -42,3 +42,6 @@ waitForPort = 5000
 
 [userenv.development]
 DATA_DIR = "/tmp/Birthdayreminder2"
+
+[agent]
+expertMode = true

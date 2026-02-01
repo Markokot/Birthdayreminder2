@@ -123,7 +123,7 @@ def format_message(upcoming_birthdays):
             print(f"✨ Генерация поздравления для {b['name']}...")
             greeting = generate_greeting(b["name"], b["description"])
             if greeting:
-                line += f"\n\n💬 Вариант поздравления:\n{greeting}"
+                line += f"\n\n💬 Вариант поздравления:\n«{greeting}»"
         
         lines.append(line)
     
