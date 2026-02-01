@@ -123,7 +123,7 @@ def format_message(upcoming_birthdays):
             print(f"✨ Генерация поздравления для {b['name']}...")
             greeting = generate_greeting(b["name"], b["description"])
             if greeting:
-                line += f"\n\n💬 Вариант поздравления:\n«{greeting}»"
+                line += f"\n\n💬 Вариант поздравления:\n<blockquote>{greeting}</blockquote>"
         
         lines.append(line)
     
@@ -202,7 +202,8 @@ def send_telegram_message(message):
     
     payload = {
         "chat_id": CHAT_ID,
-        "text": message
+        "text": message,
+        "parse_mode": "HTML"
     }
     
     data = urllib.parse.urlencode(payload).encode('utf-8')
