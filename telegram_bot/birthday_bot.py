@@ -118,9 +118,6 @@ def format_message(upcoming_birthdays):
         
         line = f"\n{b['name']} — {b['date']}\n{when} {gift_emoji}"
         
-        if b["description"]:
-            line += f"\n📝 {b['description']}"
-        
         # Генерируем AI-поздравление для именинников сегодня или завтра
         if b["days_until"] <= 1 and DEEPSEEK_API_KEY:
             print(f"✨ Генерация поздравления для {b['name']}...")
